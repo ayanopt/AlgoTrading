@@ -27,7 +27,7 @@ sym="SPY_'+dat+"C"+str(mm.ceil(c.get_quote("SPY")["price"]))+'"'
 if c.PriceHistory.Period.ONE_DAY[0] > c.PriceHistory.Period.ONE_DAY[1]:
   myobj = {
 "instruction": "BUY_TO_OPEN",
-"symbol": "SPY_220325C420",
+"symbol": dat, # comes out like "SPY_220325C420" format
 "quantity": 1,
 "passphrase":"xyz"
   }
