@@ -39,8 +39,9 @@ def option_order():
             "code": "error",
             "message": "Invalid passphrase"
         }
-    # taken from TD API order structures. Possible to update and make more intense
-    # I should add a way to 
+    # taken from TD API order structures. link: https://developer.tdameritrade.com/content/place-order-samples
+    # Possible to update and make more intense with OCO
+    # I should add a way to code this modularly, like with nested dictionaries 
     order_spec = {
         "orderType": "MARKET",
         "session": "NORMAL",
