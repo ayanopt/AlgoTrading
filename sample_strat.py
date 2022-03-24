@@ -41,21 +41,25 @@ if c.PriceHistory.Period.ONE_DAY[0] > c.PriceHistory.Period.ONE_DAY[1]:
   # I then run a depth first search adding up all the confidence values until my desired value is used
 class Node:
     def __init__(self, confidence):
-        self.val = confidence
-        self.edges = []
+        self.confidence = confidence
+        self.left = None
+        self.right = None
 def sigmoid(conf):
   return 1/(1+exp(-conf))
 class Graph:
-    def __init__(self, nodes=[]):
-        self.nodes = nodes
-    
-    def add_node(self, confidence):
+    def __init__(self, root, conf):
+        self.root = Node(conf)
+        self.size = 1
+    def add_left_node(self, root, confidence):
         newNode = Node(confidence)
-        self.nodes.append(newNode)
-
-    def add_edge(self, node1, node2):
-        node1.edges.append(node2)
-        node2.edges.append(node1)
+        root.left = newNode        
+        size+=1
+        
+    def add_right_node(self, root, confidence):
+        newNode = Node(confidence)
+        root.right = newNode        
+        size+=1
+        
     def dfs(self):
       conf=0
       if self.nodes is None:
@@ -63,13 +67,15 @@ class Graph:
       visited, to_visit = [], [self.nodes[0]]
       while to_visit: # I HATE recursion. I will always do searches iteratively
         # recursion leads to uncertainty
+        
           node = to_visit.pop() #if bfs just use popleft. it's that easy!
           conf+=node.confidence
           visited.append(node)
-          
-          for n in node.edges:
-              if n not in visited and n not in to_visit:
-                  to_visit.append(n)
+          if node.left and node.left not in visited:
+            to_visit.append(node.left)
+          if node.right and node.right not in visited:
+            to_visit.append(node.right)
+            
       if sigmoid(conf)>0.88351:
         return True
 # I use ML techniques to figure out optimal confidence values
